@@ -4,27 +4,16 @@
     <div class="container">
         <h1 class="text-center fw-bolder">Главная страница галереи</h1>
         <div class="row">
+            @foreach($images as $image)
             <div class="col-md-3">
                 <div>
-                    <img src="/rand.jpg" class="img-thumbnail border-0" alt="pencil">
+                    <a href="/show/{{$image->id}}"><img src="{{$image->image}}" class="img-thumbnail border-0" alt="xyz" width="128px"></a>
                 </div>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="/show" type="button" class="btn btn-primary">Посмотреть</a>
-                    <a href="/update" type="button" class="btn btn-primary">Изменить</a>
-                    <a href="/delete" type="button" class="btn btn-primary">Удалить</a>
-                </div>
+                <a href="/update/{{$image->id}}" class="btn btn-primary">Изменить</a>
+                <a href="/delete/{{$image->id}}" class="btn btn-danger">Удалить</a>
+            </div>
+            @endforeach
 
-
-            </div>
-            <div class="col-md-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi commodi, cumque et fugiat, laborum neque nostrum perferendis perspiciatis placeat quisquam quos repudiandae rerum similique velit vitae voluptates voluptatum. Perferendis, quidem?
-            </div>
-            <div class="col-md-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi commodi, cumque et fugiat, laborum neque nostrum perferendis perspiciatis placeat quisquam quos repudiandae rerum similique velit vitae voluptates voluptatum. Perferendis, quidem?
-            </div>
-            <div class="col-md-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi commodi, cumque et fugiat, laborum neque nostrum perferendis perspiciatis placeat quisquam quos repudiandae rerum similique velit vitae voluptates voluptatum. Perferendis, quidem?
-            </div>
 
         </div>
     </div>

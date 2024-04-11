@@ -9,7 +9,7 @@
                     {{csrf_field()}}
                     <div class="input-group">
                         <input type="file" name="image" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                        <button class="btn btn-outline-secondary" type="sybmit" id="inputGroupFileAddon04">Button</button>
+                        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Button</button>
                     </div>
                 </form>
             </div>

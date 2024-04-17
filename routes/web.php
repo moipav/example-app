@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -17,49 +18,17 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/', function () {
-    $images = DB::table('images')->get();
-    $images = $images->all();
-    return view('main', ['images' => $images]);
-});
-
-Route::get('/create', function () {
-    return view('create');
-});
-
-Route::post('/store', function (Request $request) {
-    $path = $request->file('image')->store('images');
-    DB::table('images')->insert(
-        ['image' => $path]
-    );
-    return redirect('/');
-
-});
-Route::get('/show/{id}', function ($id) {
-    $image = DB::table('images')->where('id', '=', $id)->first();
-    return view('show', ['image' => $image]);
-});
 
 
-Route::get('/update/{id}', function ($id) {
-    $image = DB::table('images')->where('id', '=', $id)->first();
-    return view('update', ['image' => $image]);
-});
+//позволяет не создавать отдельный метод если нужно только вывести представление
+Route::view('/create',  'create');
 
-Route::post('/update/{id}', function ($id, Request $request) {
-    $image = DB::table('images')->where('id', '=', $id)->first();
-
-    $path = $request->file('image')->store('images');
-    Storage::delete($image->image);
-    DB::table('images')
-        ->where('id', $id)
-        ->update(['image' => $path]);
-    return back();
-});
-
-Route::get('/delete/{id}', function ($id, Request $request) {
-    $image = DB::table('images')->where('id', '=', $id);
-    Storage::delete($image->first()->image);
-    $image->delete();
-    return back();
+//группировка маршрутов по контроллеру
+Route::controller(ImageController::class)->group(function () {
+    Route::get('/','index');
+    Route::post('/store', 'store');
+    Route::get('/update/{id}', 'updateView')->whereNumber('id');
+    Route::get('/show/{id}', 'show')->whereNumber('id');
+    Route::post('/update/{id}','update')->whereNumber('id');
+    Route::get('/delete/{id}', 'delete')->whereNumber('id');
 });
